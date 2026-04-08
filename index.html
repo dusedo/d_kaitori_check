@@ -6,47 +6,47 @@
 <title>D買取価格チェッカー</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif; background: #f5f5f5; color: #333; }
-.header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; padding: 16px 20px; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif; background: #f5f5f5; color: #333; display: flex; flex-direction: column; }
+.header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; padding: 12px 20px; flex-shrink: 0; }
 .header h1 { font-size: 18px; font-weight: 700; }
 .header .updated { font-size: 12px; color: #aaa; margin-top: 4px; }
-.container { max-width: 1100px; margin: 0 auto; padding: 12px; }
-.controls { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.controls { display: flex; gap: 8px; padding: 8px 12px; background: #f5f5f5; flex-shrink: 0; max-width: 1100px; width: 100%; margin: 0 auto; }
+.controls select { padding: 10px 14px; font-size: 14px; border: 1px solid #ddd; border-radius: 6px; background: #fff; outline: none; }
 .controls input { flex: 1; min-width: 200px; padding: 10px 14px; font-size: 14px; border: 1px solid #ddd; border-radius: 6px; outline: none; background: #fff; }
 .controls input:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
-.controls select { padding: 10px 14px; font-size: 14px; border: 1px solid #ddd; border-radius: 6px; background: #fff; outline: none; }
-.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.table-wrap { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; max-width: 1100px; width: 100%; margin: 0 auto; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; white-space: nowrap; }
 thead th { position: sticky; top: 0; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
-th { padding: 10px 8px; text-align: left; font-weight: 600; font-size: 11px; color: #666; border-bottom: 2px solid #eee; }
-th.vendor { background: #eef2ff; text-align: center; }
+th { padding: 10px 8px; text-align: center; font-weight: 600; font-size: 11px; color: #666; border-bottom: 2px solid #eee; }
+th.vendor { background: #eef2ff; }
 th.sub { background: #fafafa; }
 td { padding: 8px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
 tr:hover { background: #fafbff; }
 tr.hidden { display: none; }
-.cat { font-size: 12px; white-space: nowrap; }
-.name { font-weight: 600; min-width: 180px; }
-.price { font-weight: 700; text-align: right; }
-.diff { text-align: right; font-weight: 600; font-size: 12px; }
+.cat { font-size: 12px; white-space: nowrap; text-align: center; }
+.name { font-weight: 600; max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+.price { font-weight: 700; text-align: center; }
+.price.best { background: #fffde7; }
+.diff { text-align: center; font-weight: 600; font-size: 12px; }
 .diff.up { color: #16a34a; }
 .diff.down { color: #dc2626; }
-.footer { text-align: center; padding: 16px; font-size: 11px; color: #aaa; }
+.footer { text-align: center; padding: 8px; font-size: 11px; color: #aaa; flex-shrink: 0; }
 @media (max-width: 600px) {
-  .container { padding: 4px; }
   table { font-size: 12px; }
   th, td { padding: 6px 4px; }
   .header h1 { font-size: 16px; }
+  .header { padding: 10px 12px; }
+  .controls { padding: 6px 4px; }
 }
 </style>
 </head>
 <body>
 <div class="header">
   <h1>D買取価格チェッカー</h1>
-  <div class="updated">更新: 2026/04/09 08:45</div>
+  <div class="updated">更新: 2026/04/09 08:51</div>
 </div>
-<div class="container">
 <div class="controls">
-  <input type="text" id="searchInput" placeholder="商品名で検索..." oninput="filterTable()">
   <select id="categoryFilter" onchange="filterTable()">
     <option value="">全カテゴリ</option>
     <option value="🎮ゲーム">🎮ゲーム</option>
@@ -54,6 +54,7 @@ tr.hidden { display: none; }
     <option value="🃏トレカ">🃏トレカ</option>
     <option value="📦その他">📦その他</option>
   </select>
+  <input type="text" id="searchInput" placeholder="商品名で検索..." oninput="filterTable()">
 </div>
 <div class="table-wrap">
 <table>
@@ -75,19 +76,19 @@ tr.hidden { display: none; }
 <tr data-category="🎮ゲーム">
 <td class="cat">🎮ゲーム</td>
 <td class="name">Switch2 国内版(定価49980)</td>
-<td class="price">¥45,300</td>
+<td class="price best">¥45,300</td>
 <td class="diff">-</td>
 <td class="price">¥44,000</td>
 <td class="diff">-</td>
-<td class="price">¥45,300</td>
+<td class="price best">¥45,300</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
 <td class="cat">🎮ゲーム</td>
 <td class="name">Switch2 国内版マリカーセット(定価53980)</td>
-<td class="price">¥52,200</td>
+<td class="price best">¥52,200</td>
 <td class="diff">-</td>
-<td class="price">¥52,200</td>
+<td class="price best">¥52,200</td>
 <td class="diff">-</td>
 <td class="price">¥52,000</td>
 <td class="diff">-</td>
@@ -95,7 +96,7 @@ tr.hidden { display: none; }
 <tr data-category="🎮ゲーム">
 <td class="cat">🎮ゲーム</td>
 <td class="name">Switch2 ポケモンZ-Aセット(定価53980)</td>
-<td class="price">¥50,500</td>
+<td class="price best">¥50,500</td>
 <td class="diff">-</td>
 <td class="price">¥50,200</td>
 <td class="diff">-</td>
@@ -107,7 +108,7 @@ tr.hidden { display: none; }
 <td class="name">Switch2 多言語版(定価69980)</td>
 <td class="price">¥75,000</td>
 <td class="diff">-</td>
-<td class="price">¥75,500</td>
+<td class="price best">¥75,500</td>
 <td class="diff">-</td>
 <td class="price">¥75,200</td>
 <td class="diff">-</td>
@@ -115,21 +116,21 @@ tr.hidden { display: none; }
 <tr data-category="🎮ゲーム">
 <td class="cat">🎮ゲーム</td>
 <td class="name">ぽこ あ ポケモン [Nintendo Switch 2 専用]</td>
-<td class="price">¥6,700</td>
+<td class="price best">¥6,700</td>
 <td class="diff">-</td>
-<td class="price">¥6,700</td>
+<td class="price best">¥6,700</td>
 <td class="diff">-</td>
-<td class="price">¥6,700</td>
+<td class="price best">¥6,700</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
 <td class="cat">🎮ゲーム</td>
 <td class="name">Switch2 Proコン(定価9980)</td>
-<td class="price">¥8,800</td>
+<td class="price best">¥8,800</td>
 <td class="diff">-</td>
 <td class="price">¥8,600</td>
 <td class="diff">-</td>
-<td class="price">¥8,800</td>
+<td class="price best">¥8,800</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -137,9 +138,9 @@ tr.hidden { display: none; }
 <td class="name">Switch (有機白)</td>
 <td class="price">¥42,700</td>
 <td class="diff">-</td>
-<td class="price">¥42,900</td>
+<td class="price best">¥42,900</td>
 <td class="diff">-</td>
-<td class="price">¥42,900</td>
+<td class="price best">¥42,900</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -147,9 +148,9 @@ tr.hidden { display: none; }
 <td class="name">Switch (有機ネオン)</td>
 <td class="price">¥44,800</td>
 <td class="diff">-</td>
-<td class="price">¥45,000</td>
+<td class="price best">¥45,000</td>
 <td class="diff">-</td>
-<td class="price">¥45,000</td>
+<td class="price best">¥45,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -157,7 +158,7 @@ tr.hidden { display: none; }
 <td class="name">Switch (有機マリオ)</td>
 <td class="price">¥41,000</td>
 <td class="diff">-</td>
-<td class="price">¥41,400</td>
+<td class="price best">¥41,400</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -167,7 +168,7 @@ tr.hidden { display: none; }
 <td class="name">Switch (有機ゼルダ)</td>
 <td class="price">¥43,000</td>
 <td class="diff">-</td>
-<td class="price">¥43,400</td>
+<td class="price best">¥43,400</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -177,7 +178,7 @@ tr.hidden { display: none; }
 <td class="name">Switch (有機スカバイ)</td>
 <td class="price">¥43,000</td>
 <td class="diff">-</td>
-<td class="price">¥43,400</td>
+<td class="price best">¥43,400</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -187,7 +188,7 @@ tr.hidden { display: none; }
 <td class="name">Switch (有機スプラ)</td>
 <td class="price">¥41,000</td>
 <td class="diff">-</td>
-<td class="price">¥41,400</td>
+<td class="price best">¥41,400</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -197,9 +198,9 @@ tr.hidden { display: none; }
 <td class="name">Switch (新型ネオン)</td>
 <td class="price">¥33,600</td>
 <td class="diff">-</td>
-<td class="price">¥33,800</td>
+<td class="price best">¥33,800</td>
 <td class="diff">-</td>
-<td class="price">¥33,800</td>
+<td class="price best">¥33,800</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -207,9 +208,9 @@ tr.hidden { display: none; }
 <td class="name">Switch (新型グレー)</td>
 <td class="price">¥33,600</td>
 <td class="diff">-</td>
-<td class="price">¥33,800</td>
+<td class="price best">¥33,800</td>
 <td class="diff">-</td>
-<td class="price">¥33,800</td>
+<td class="price best">¥33,800</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -217,7 +218,7 @@ tr.hidden { display: none; }
 <td class="name">Switch Lite (グレー)</td>
 <td class="price">¥23,400</td>
 <td class="diff">-</td>
-<td class="price">¥23,550</td>
+<td class="price best">¥23,550</td>
 <td class="diff">-</td>
 <td class="price">¥23,500</td>
 <td class="diff">-</td>
@@ -227,7 +228,7 @@ tr.hidden { display: none; }
 <td class="name">Switch Lite (ブルー)</td>
 <td class="price">¥23,400</td>
 <td class="diff">-</td>
-<td class="price">¥23,550</td>
+<td class="price best">¥23,550</td>
 <td class="diff">-</td>
 <td class="price">¥23,500</td>
 <td class="diff">-</td>
@@ -237,7 +238,7 @@ tr.hidden { display: none; }
 <td class="name">Switch Lite (コーラル)</td>
 <td class="price">¥23,400</td>
 <td class="diff">-</td>
-<td class="price">¥23,550</td>
+<td class="price best">¥23,550</td>
 <td class="diff">-</td>
 <td class="price">¥23,400</td>
 <td class="diff">-</td>
@@ -247,7 +248,7 @@ tr.hidden { display: none; }
 <td class="name">Switch Lite (ターコイズ)</td>
 <td class="price">¥23,400</td>
 <td class="diff">-</td>
-<td class="price">¥23,550</td>
+<td class="price best">¥23,550</td>
 <td class="diff">-</td>
 <td class="price">¥23,400</td>
 <td class="diff">-</td>
@@ -257,7 +258,7 @@ tr.hidden { display: none; }
 <td class="name">Switch Lite (イエロー)</td>
 <td class="price">¥23,400</td>
 <td class="diff">-</td>
-<td class="price">¥23,550</td>
+<td class="price best">¥23,550</td>
 <td class="diff">-</td>
 <td class="price">¥23,500</td>
 <td class="diff">-</td>
@@ -267,7 +268,7 @@ tr.hidden { display: none; }
 <td class="name">Switch Lite (ハイラル)</td>
 <td class="price">¥24,200</td>
 <td class="diff">-</td>
-<td class="price">¥24,500</td>
+<td class="price best">¥24,500</td>
 <td class="diff">-</td>
 <td class="price">¥24,200</td>
 <td class="diff">-</td>
@@ -277,7 +278,7 @@ tr.hidden { display: none; }
 <td class="name">PS5</td>
 <td class="price">¥90,000</td>
 <td class="diff">-</td>
-<td class="price">¥90,400</td>
+<td class="price best">¥90,400</td>
 <td class="diff">-</td>
 <td class="price">¥90,000</td>
 <td class="diff">-</td>
@@ -287,7 +288,7 @@ tr.hidden { display: none; }
 <td class="name">PS5デジタル</td>
 <td class="price">¥74,000</td>
 <td class="diff">-</td>
-<td class="price">¥74,400</td>
+<td class="price best">¥74,400</td>
 <td class="diff">-</td>
 <td class="price">¥74,000</td>
 <td class="diff">-</td>
@@ -297,7 +298,7 @@ tr.hidden { display: none; }
 <td class="name">PlayStation5 Pro</td>
 <td class="price">¥126,500</td>
 <td class="diff">-</td>
-<td class="price">¥126,900</td>
+<td class="price best">¥126,900</td>
 <td class="diff">-</td>
 <td class="price">¥126,500</td>
 <td class="diff">-</td>
@@ -307,9 +308,9 @@ tr.hidden { display: none; }
 <td class="name">PlayStation VR2</td>
 <td class="price">¥51,000</td>
 <td class="diff">-</td>
-<td class="price">¥51,200</td>
+<td class="price best">¥51,200</td>
 <td class="diff">-</td>
-<td class="price">¥51,200</td>
+<td class="price best">¥51,200</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -317,9 +318,9 @@ tr.hidden { display: none; }
 <td class="name">PlayStation VR2 Horizon同梱版</td>
 <td class="price">¥51,000</td>
 <td class="diff">-</td>
-<td class="price">¥51,200</td>
+<td class="price best">¥51,200</td>
 <td class="diff">-</td>
-<td class="price">¥51,200</td>
+<td class="price best">¥51,200</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -327,7 +328,7 @@ tr.hidden { display: none; }
 <td class="name">リモートプレーヤー</td>
 <td class="price">¥32,000</td>
 <td class="diff">-</td>
-<td class="price">¥32,100</td>
+<td class="price best">¥32,100</td>
 <td class="diff">-</td>
 <td class="price">¥32,000</td>
 <td class="diff">-</td>
@@ -337,7 +338,7 @@ tr.hidden { display: none; }
 <td class="name">Xbox X</td>
 <td class="price">¥87,600</td>
 <td class="diff">-</td>
-<td class="price">¥87,800</td>
+<td class="price best">¥87,800</td>
 <td class="diff">-</td>
 <td class="price">¥86,800</td>
 <td class="diff">-</td>
@@ -347,7 +348,7 @@ tr.hidden { display: none; }
 <td class="name">Xbox S</td>
 <td class="price">¥54,100</td>
 <td class="diff">-</td>
-<td class="price">¥54,300</td>
+<td class="price best">¥54,300</td>
 <td class="diff">-</td>
 <td class="price">¥51,500</td>
 <td class="diff">-</td>
@@ -357,7 +358,7 @@ tr.hidden { display: none; }
 <td class="name">Xbox X 1TB ホワイト</td>
 <td class="price">¥77,600</td>
 <td class="diff">-</td>
-<td class="price">¥77,800</td>
+<td class="price best">¥77,800</td>
 <td class="diff">-</td>
 <td class="price">¥77,000</td>
 <td class="diff">-</td>
@@ -367,7 +368,7 @@ tr.hidden { display: none; }
 <td class="name">Xbox S 1TB ホワイト</td>
 <td class="price">¥63,300</td>
 <td class="diff">-</td>
-<td class="price">¥63,500</td>
+<td class="price best">¥63,500</td>
 <td class="diff">-</td>
 <td class="price">¥62,900</td>
 <td class="diff">-</td>
@@ -377,7 +378,7 @@ tr.hidden { display: none; }
 <td class="name">Meta Quest 3 512</td>
 <td class="price">¥75,900</td>
 <td class="diff">-</td>
-<td class="price">¥76,200</td>
+<td class="price best">¥76,200</td>
 <td class="diff">-</td>
 <td class="price">¥76,100</td>
 <td class="diff">-</td>
@@ -389,7 +390,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥63,500</td>
 <td class="diff">-</td>
-<td class="price">¥65,000</td>
+<td class="price best">¥65,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="🎮ゲーム">
@@ -397,7 +398,7 @@ tr.hidden { display: none; }
 <td class="name">Meta Quest 3S 128GB</td>
 <td class="price">¥45,100</td>
 <td class="diff">-</td>
-<td class="price">¥45,600</td>
+<td class="price best">¥45,600</td>
 <td class="diff">-</td>
 <td class="price">¥45,300</td>
 <td class="diff">-</td>
@@ -407,7 +408,7 @@ tr.hidden { display: none; }
 <td class="name">Meta Quest 3S 256GB</td>
 <td class="price">¥57,100</td>
 <td class="diff">-</td>
-<td class="price">¥57,600</td>
+<td class="price best">¥57,600</td>
 <td class="diff">-</td>
 <td class="price">¥57,300</td>
 <td class="diff">-</td>
@@ -417,7 +418,7 @@ tr.hidden { display: none; }
 <td class="name">Pokemon GO Plus+</td>
 <td class="price">¥15,000</td>
 <td class="diff">-</td>
-<td class="price">¥15,200</td>
+<td class="price best">¥15,200</td>
 <td class="diff">-</td>
 <td class="price">¥14,000</td>
 <td class="diff">-</td>
@@ -427,7 +428,7 @@ tr.hidden { display: none; }
 <td class="name">Steam Deck 有機EL 512GB</td>
 <td class="price">¥101,300</td>
 <td class="diff">-</td>
-<td class="price">¥101,600</td>
+<td class="price best">¥101,600</td>
 <td class="diff">-</td>
 <td class="price">¥101,500</td>
 <td class="diff">-</td>
@@ -437,7 +438,7 @@ tr.hidden { display: none; }
 <td class="name">Steam Deck 有機EL 1TB</td>
 <td class="price">¥115,300</td>
 <td class="diff">-</td>
-<td class="price">¥115,600</td>
+<td class="price best">¥115,600</td>
 <td class="diff">-</td>
 <td class="price">¥115,500</td>
 <td class="diff">-</td>
@@ -445,11 +446,11 @@ tr.hidden { display: none; }
 <tr data-category="🎮ゲーム">
 <td class="cat">🎮ゲーム</td>
 <td class="name">ニンテンドーサウンドクロック Alarmo</td>
-<td class="price">¥10,600</td>
+<td class="price best">¥10,600</td>
 <td class="diff">-</td>
 <td class="price">¥10,200</td>
 <td class="diff">-</td>
-<td class="price">¥10,600</td>
+<td class="price best">¥10,600</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -457,7 +458,7 @@ tr.hidden { display: none; }
 <td class="name">チェキフィルム 2P</td>
 <td class="price">¥2,850</td>
 <td class="diff">-</td>
-<td class="price">¥2,860</td>
+<td class="price best">¥2,860</td>
 <td class="diff">-</td>
 <td class="price">¥2,850</td>
 <td class="diff">-</td>
@@ -467,7 +468,7 @@ tr.hidden { display: none; }
 <td class="name">チェキフィルム 1P</td>
 <td class="price">¥1,440</td>
 <td class="diff">-</td>
-<td class="price">¥1,450</td>
+<td class="price best">¥1,450</td>
 <td class="diff">-</td>
 <td class="price">¥1,440</td>
 <td class="diff">-</td>
@@ -477,7 +478,7 @@ tr.hidden { display: none; }
 <td class="name">写ルンです（旧パッケージ）</td>
 <td class="price">¥2,700</td>
 <td class="diff">-</td>
-<td class="price">¥2,710</td>
+<td class="price best">¥2,710</td>
 <td class="diff">-</td>
 <td class="price">¥2,650</td>
 <td class="diff">-</td>
@@ -487,9 +488,9 @@ tr.hidden { display: none; }
 <td class="name">写ルンです（新パッケージ）</td>
 <td class="price">¥2,450</td>
 <td class="diff">-</td>
-<td class="price">¥2,460</td>
+<td class="price best">¥2,460</td>
 <td class="diff">-</td>
-<td class="price">¥2,460</td>
+<td class="price best">¥2,460</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -497,7 +498,7 @@ tr.hidden { display: none; }
 <td class="name">チェキスクエアフィルム20枚</td>
 <td class="price">¥2,630</td>
 <td class="diff">-</td>
-<td class="price">¥2,640</td>
+<td class="price best">¥2,640</td>
 <td class="diff">-</td>
 <td class="price">¥2,630</td>
 <td class="diff">-</td>
@@ -507,7 +508,7 @@ tr.hidden { display: none; }
 <td class="name">チェキスクエアフィルム10枚</td>
 <td class="price">¥1,310</td>
 <td class="diff">-</td>
-<td class="price">¥1,320</td>
+<td class="price best">¥1,320</td>
 <td class="diff">-</td>
 <td class="price">¥1,100</td>
 <td class="diff">-</td>
@@ -517,7 +518,7 @@ tr.hidden { display: none; }
 <td class="name">INSTAX mini 12 ピンク</td>
 <td class="price">¥12,600</td>
 <td class="diff">-</td>
-<td class="price">¥12,650</td>
+<td class="price best">¥12,650</td>
 <td class="diff">-</td>
 <td class="price">¥12,400</td>
 <td class="diff">-</td>
@@ -527,7 +528,7 @@ tr.hidden { display: none; }
 <td class="name">instax mini 40</td>
 <td class="price">¥17,500</td>
 <td class="diff">-</td>
-<td class="price">¥17,600</td>
+<td class="price best">¥17,600</td>
 <td class="diff">-</td>
 <td class="price">¥17,500</td>
 <td class="diff">-</td>
@@ -539,7 +540,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥43,600</td>
 <td class="diff">-</td>
-<td class="price">¥47,500</td>
+<td class="price best">¥47,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -549,7 +550,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥43,600</td>
 <td class="diff">-</td>
-<td class="price">¥48,000</td>
+<td class="price best">¥48,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -557,9 +558,9 @@ tr.hidden { display: none; }
 <td class="name">instax mini 99</td>
 <td class="price">¥26,500</td>
 <td class="diff">-</td>
-<td class="price">¥26,600</td>
+<td class="price best">¥26,600</td>
 <td class="diff">-</td>
-<td class="price">¥26,600</td>
+<td class="price best">¥26,600</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -567,7 +568,7 @@ tr.hidden { display: none; }
 <td class="name">instax wide 400</td>
 <td class="price">¥23,700</td>
 <td class="diff">-</td>
-<td class="price">¥24,100</td>
+<td class="price best">¥24,100</td>
 <td class="diff">-</td>
 <td class="price">¥23,900</td>
 <td class="diff">-</td>
@@ -577,7 +578,7 @@ tr.hidden { display: none; }
 <td class="name">instax mini Evo 黒</td>
 <td class="price">¥27,000</td>
 <td class="diff">-</td>
-<td class="price">¥27,100</td>
+<td class="price best">¥27,100</td>
 <td class="diff">-</td>
 <td class="price">¥27,000</td>
 <td class="diff">-</td>
@@ -587,9 +588,9 @@ tr.hidden { display: none; }
 <td class="name">instax mini Evo 茶</td>
 <td class="price">¥28,000</td>
 <td class="diff">-</td>
-<td class="price">¥28,100</td>
+<td class="price best">¥28,100</td>
 <td class="diff">-</td>
-<td class="price">¥28,100</td>
+<td class="price best">¥28,100</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -599,7 +600,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥38,100</td>
 <td class="diff">-</td>
-<td class="price">¥39,000</td>
+<td class="price best">¥39,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -607,7 +608,7 @@ tr.hidden { display: none; }
 <td class="name">instax mini Evo PINK </td>
 <td class="price">¥53,500</td>
 <td class="diff">-</td>
-<td class="price">¥53,600</td>
+<td class="price best">¥53,600</td>
 <td class="diff">-</td>
 <td class="price">¥53,500</td>
 <td class="diff">-</td>
@@ -617,9 +618,9 @@ tr.hidden { display: none; }
 <td class="name">instax mini Evo GENTLE ROSE</td>
 <td class="price">¥31,500</td>
 <td class="diff">-</td>
-<td class="price">¥31,600</td>
+<td class="price best">¥31,600</td>
 <td class="diff">-</td>
-<td class="price">¥31,600</td>
+<td class="price best">¥31,600</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -629,7 +630,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥40,000</td>
 <td class="diff">-</td>
-<td class="price">¥42,000</td>
+<td class="price best">¥42,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -637,9 +638,9 @@ tr.hidden { display: none; }
 <td class="name">instax SQUARE SQ40 [ブラック]</td>
 <td class="price">¥20,500</td>
 <td class="diff">-</td>
-<td class="price">¥20,600</td>
+<td class="price best">¥20,600</td>
 <td class="diff">-</td>
-<td class="price">¥20,600</td>
+<td class="price best">¥20,600</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -647,9 +648,9 @@ tr.hidden { display: none; }
 <td class="name">instax SQUARE SQ1 ブルー</td>
 <td class="price">¥20,300</td>
 <td class="diff">-</td>
-<td class="price">¥20,400</td>
+<td class="price best">¥20,400</td>
 <td class="diff">-</td>
-<td class="price">¥20,400</td>
+<td class="price best">¥20,400</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -657,9 +658,9 @@ tr.hidden { display: none; }
 <td class="name">instax SQUARE SQ1 オレンジ</td>
 <td class="price">¥20,300</td>
 <td class="diff">-</td>
-<td class="price">¥20,400</td>
+<td class="price best">¥20,400</td>
 <td class="diff">-</td>
-<td class="price">¥20,400</td>
+<td class="price best">¥20,400</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -667,39 +668,39 @@ tr.hidden { display: none; }
 <td class="name">instax SQUARE SQ1 ホワイト</td>
 <td class="price">¥20,300</td>
 <td class="diff">-</td>
-<td class="price">¥20,400</td>
+<td class="price best">¥20,400</td>
 <td class="diff">-</td>
-<td class="price">¥20,400</td>
+<td class="price best">¥20,400</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">IXY 650 シルバー</td>
-<td class="price">¥44,300</td>
+<td class="price best">¥44,300</td>
 <td class="diff">-</td>
 <td class="price">¥44,000</td>
 <td class="diff">-</td>
-<td class="price">¥44,300</td>
+<td class="price best">¥44,300</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">IXY 650 ブラック</td>
-<td class="price">¥44,300</td>
+<td class="price best">¥44,300</td>
 <td class="diff">-</td>
 <td class="price">¥44,000</td>
 <td class="diff">-</td>
-<td class="price">¥44,300</td>
+<td class="price best">¥44,300</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">IXY 650 m [シルバー]</td>
-<td class="price">¥41,500</td>
+<td class="price best">¥41,500</td>
 <td class="diff">-</td>
 <td class="price">¥41,000</td>
 <td class="diff">-</td>
-<td class="price">¥41,500</td>
+<td class="price best">¥41,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -709,17 +710,17 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥41,800</td>
 <td class="diff">-</td>
-<td class="price">¥42,300</td>
+<td class="price best">¥42,300</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">SX740 シルバー</td>
-<td class="price">¥80,500</td>
+<td class="price best">¥80,500</td>
 <td class="diff">-</td>
 <td class="price">¥78,000</td>
 <td class="diff">-</td>
-<td class="price">¥80,500</td>
+<td class="price best">¥80,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -729,15 +730,15 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥86,000</td>
 <td class="diff">-</td>
-<td class="price">¥86,500</td>
+<td class="price best">¥86,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">SX70</td>
-<td class="price">¥126,600</td>
+<td class="price best">¥126,600</td>
 <td class="diff">-</td>
-<td class="price">¥126,600</td>
+<td class="price best">¥126,600</td>
 <td class="diff">-</td>
 <td class="price">¥126,500</td>
 <td class="diff">-</td>
@@ -749,17 +750,17 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥98,000</td>
 <td class="diff">-</td>
-<td class="price">¥102,000</td>
+<td class="price best">¥102,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">PowerShot G7 X Mark III [ブラック]</td>
-<td class="price">¥168,500</td>
+<td class="price best">¥168,500</td>
 <td class="diff">-</td>
 <td class="price">¥165,000</td>
 <td class="diff">-</td>
-<td class="price">¥168,500</td>
+<td class="price best">¥168,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -769,7 +770,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥155,000</td>
 <td class="diff">-</td>
-<td class="price">¥157,000</td>
+<td class="price best">¥157,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -779,7 +780,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥167,500</td>
 <td class="diff">-</td>
-<td class="price">¥169,000</td>
+<td class="price best">¥169,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -789,13 +790,13 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥287,800</td>
 <td class="diff">-</td>
-<td class="price">¥292,000</td>
+<td class="price best">¥292,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">X100VI [ブラック]※旧JAN</td>
-<td class="price">¥286,500</td>
+<td class="price best">¥286,500</td>
 <td class="diff">-</td>
 <td class="price">¥282,200</td>
 <td class="diff">-</td>
@@ -805,7 +806,7 @@ tr.hidden { display: none; }
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">X100VI [シルバー]※新JAN</td>
-<td class="price">¥293,200</td>
+<td class="price best">¥293,200</td>
 <td class="diff">-</td>
 <td class="price">¥286,000</td>
 <td class="diff">-</td>
@@ -815,7 +816,7 @@ tr.hidden { display: none; }
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">X100VI [ブラック]※新JAN</td>
-<td class="price">¥271,700</td>
+<td class="price best">¥271,700</td>
 <td class="diff">-</td>
 <td class="price">¥267,500</td>
 <td class="diff">-</td>
@@ -829,7 +830,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥138,000</td>
 <td class="diff">-</td>
-<td class="price">¥140,000</td>
+<td class="price best">¥140,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -839,7 +840,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥122,600</td>
 <td class="diff">-</td>
-<td class="price">¥123,000</td>
+<td class="price best">¥123,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -849,7 +850,7 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥129,000</td>
 <td class="diff">-</td>
-<td class="price">¥133,500</td>
+<td class="price best">¥133,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -859,33 +860,33 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥129,000</td>
 <td class="diff">-</td>
-<td class="price">¥131,500</td>
+<td class="price best">¥131,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">LUMIX DC-TZ99-K [ブラック]</td>
-<td class="price">¥65,300</td>
+<td class="price best">¥65,300</td>
 <td class="diff">-</td>
 <td class="price">¥62,500</td>
 <td class="diff">-</td>
-<td class="price">¥65,300</td>
+<td class="price best">¥65,300</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">LUMIX DC-TZ99-W [ホワイト]</td>
-<td class="price">¥63,500</td>
+<td class="price best">¥63,500</td>
 <td class="diff">-</td>
 <td class="price">¥62,500</td>
 <td class="diff">-</td>
-<td class="price">¥63,500</td>
+<td class="price best">¥63,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">RICOH GR III</td>
-<td class="price">¥170,500</td>
+<td class="price best">¥170,500</td>
 <td class="diff">-</td>
 <td class="price">¥168,900</td>
 <td class="diff">-</td>
@@ -895,7 +896,7 @@ tr.hidden { display: none; }
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">RICOH GR IIIx</td>
-<td class="price">¥178,200</td>
+<td class="price best">¥178,200</td>
 <td class="diff">-</td>
 <td class="price">¥178,100</td>
 <td class="diff">-</td>
@@ -905,7 +906,7 @@ tr.hidden { display: none; }
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">RICOH GR III Diary Edition</td>
-<td class="price">¥173,000</td>
+<td class="price best">¥173,000</td>
 <td class="diff">-</td>
 <td class="price">¥169,800</td>
 <td class="diff">-</td>
@@ -915,7 +916,7 @@ tr.hidden { display: none; }
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">RICOH GR IIIx Urban Edition</td>
-<td class="price">¥176,200</td>
+<td class="price best">¥176,200</td>
 <td class="diff">-</td>
 <td class="price">¥160,000</td>
 <td class="diff">-</td>
@@ -925,19 +926,19 @@ tr.hidden { display: none; }
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">RICOH GR IV</td>
-<td class="price">¥228,000</td>
+<td class="price best">¥228,000</td>
 <td class="diff">-</td>
-<td class="price">¥228,000</td>
+<td class="price best">¥228,000</td>
 <td class="diff">-</td>
-<td class="price">¥228,000</td>
+<td class="price best">¥228,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">RICOH GR IV Monochrome</td>
-<td class="price">¥243,000</td>
+<td class="price best">¥243,000</td>
 <td class="diff">-</td>
-<td class="price">¥243,000</td>
+<td class="price best">¥243,000</td>
 <td class="diff">-</td>
 <td class="price">¥240,000</td>
 <td class="diff">-</td>
@@ -945,11 +946,11 @@ tr.hidden { display: none; }
 <tr data-category="📷カメラ">
 <td class="cat">📷カメラ</td>
 <td class="name">Z30 ダブルズームキット</td>
-<td class="price">¥124,500</td>
+<td class="price best">¥124,500</td>
 <td class="diff">-</td>
-<td class="price">¥124,500</td>
+<td class="price best">¥124,500</td>
 <td class="diff">-</td>
-<td class="price">¥124,500</td>
+<td class="price best">¥124,500</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📷カメラ">
@@ -959,13 +960,13 @@ tr.hidden { display: none; }
 <td class="diff">-</td>
 <td class="price">¥112,000</td>
 <td class="diff">-</td>
-<td class="price">¥114,000</td>
+<td class="price best">¥114,000</td>
 <td class="diff">-</td>
 </tr>
 <tr data-category="📦その他">
 <td class="cat">📦その他</td>
 <td class="name">IQOS イルマ i プライム セレッティモデル</td>
-<td class="price">¥19,000</td>
+<td class="price best">¥19,000</td>
 <td class="diff">-</td>
 <td class="price">¥18,000</td>
 <td class="diff">-</td>
@@ -975,7 +976,7 @@ tr.hidden { display: none; }
 <tr data-category="📦その他">
 <td class="cat">📦その他</td>
 <td class="name">IQOS イルマ i セレッティモデル</td>
-<td class="price">¥11,000</td>
+<td class="price best">¥11,000</td>
 <td class="diff">-</td>
 <td class="price">¥10,500</td>
 <td class="diff">-</td>
@@ -987,7 +988,7 @@ tr.hidden { display: none; }
 <td class="name">IQOS イルマ i ワン セレッティモデル</td>
 <td class="price">¥7,000</td>
 <td class="diff">-</td>
-<td class="price">¥7,100</td>
+<td class="price best">¥7,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -997,7 +998,7 @@ tr.hidden { display: none; }
 <td class="name">ポケモン ポケなで</td>
 <td class="price">¥5,000</td>
 <td class="diff">-</td>
-<td class="price">¥5,600</td>
+<td class="price best">¥5,600</td>
 <td class="diff">-</td>
 <td class="price">¥5,000</td>
 <td class="diff">-</td>
@@ -1005,7 +1006,7 @@ tr.hidden { display: none; }
 <tr data-category="📦その他">
 <td class="cat">📦その他</td>
 <td class="name">Tamagotchi Paradise Purple Sky</td>
-<td class="price">¥6,500</td>
+<td class="price best">¥6,500</td>
 <td class="diff">-</td>
 <td class="price">¥6,000</td>
 <td class="diff">-</td>
@@ -1015,7 +1016,7 @@ tr.hidden { display: none; }
 <tr data-category="📦その他">
 <td class="cat">📦その他</td>
 <td class="name">Tamagotchi Paradise Blue Water</td>
-<td class="price">¥6,500</td>
+<td class="price best">¥6,500</td>
 <td class="diff">-</td>
 <td class="price">¥6,000</td>
 <td class="diff">-</td>
@@ -1025,9 +1026,9 @@ tr.hidden { display: none; }
 <tr data-category="📦その他">
 <td class="cat">📦その他</td>
 <td class="name">Tamagotchi Paradise Pink Land</td>
-<td class="price">¥6,300</td>
+<td class="price best">¥6,300</td>
 <td class="diff">-</td>
-<td class="price">¥6,300</td>
+<td class="price best">¥6,300</td>
 <td class="diff">-</td>
 <td class="price">¥5,900</td>
 <td class="diff">-</td>
@@ -1037,7 +1038,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ ニンジャスピナー</td>
 <td class="price">¥11,100</td>
 <td class="diff">-</td>
-<td class="price">¥11,300</td>
+<td class="price best">¥11,300</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1045,9 +1046,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ ムニキスゼロ</td>
-<td class="price">¥7,800</td>
+<td class="price best">¥7,800</td>
 <td class="diff">-</td>
-<td class="price">¥7,800</td>
+<td class="price best">¥7,800</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1055,7 +1056,7 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ MEGAドリームex</td>
-<td class="price">¥14,500</td>
+<td class="price best">¥14,500</td>
 <td class="diff">-</td>
 <td class="price">¥14,200</td>
 <td class="diff">-</td>
@@ -1065,9 +1066,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ インフェルノX</td>
-<td class="price">¥25,000</td>
+<td class="price best">¥25,000</td>
 <td class="diff">-</td>
-<td class="price">¥25,000</td>
+<td class="price best">¥25,000</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1075,7 +1076,7 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ メガブレイブ</td>
-<td class="price">¥11,800</td>
+<td class="price best">¥11,800</td>
 <td class="diff">-</td>
 <td class="price">¥11,600</td>
 <td class="diff">-</td>
@@ -1087,7 +1088,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ メガシンフォニア</td>
 <td class="price">¥9,600</td>
 <td class="diff">-</td>
-<td class="price">¥9,700</td>
+<td class="price best">¥9,700</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1097,7 +1098,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ ブラックボルト</td>
 <td class="price">¥21,000</td>
 <td class="diff">-</td>
-<td class="price">¥21,100</td>
+<td class="price best">¥21,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1107,7 +1108,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ ホワイトフレア</td>
 <td class="price">¥20,000</td>
 <td class="diff">-</td>
-<td class="price">¥20,100</td>
+<td class="price best">¥20,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1117,7 +1118,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ ブラックボルトDX</td>
 <td class="price">¥23,000</td>
 <td class="diff">-</td>
-<td class="price">¥25,100</td>
+<td class="price best">¥25,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1127,7 +1128,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ ホワイトフレアDX</td>
 <td class="price">¥19,000</td>
 <td class="diff">-</td>
-<td class="price">¥20,100</td>
+<td class="price best">¥20,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1135,9 +1136,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ ロケット団の栄光</td>
-<td class="price">¥21,500</td>
+<td class="price best">¥21,500</td>
 <td class="diff">-</td>
-<td class="price">¥21,500</td>
+<td class="price best">¥21,500</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1145,7 +1146,7 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ 熱風のアリーナ</td>
-<td class="price">¥19,200</td>
+<td class="price best">¥19,200</td>
 <td class="diff">-</td>
 <td class="price">¥19,100</td>
 <td class="diff">-</td>
@@ -1157,7 +1158,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ バトルパートナーズ</td>
 <td class="price">¥9,500</td>
 <td class="diff">-</td>
-<td class="price">¥9,600</td>
+<td class="price best">¥9,600</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1165,9 +1166,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ テラスタルフェスex</td>
-<td class="price">¥19,800</td>
+<td class="price best">¥19,800</td>
 <td class="diff">-</td>
-<td class="price">¥19,800</td>
+<td class="price best">¥19,800</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1177,7 +1178,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ 超電ブレイカー</td>
 <td class="price">¥31,000</td>
 <td class="diff">-</td>
-<td class="price">¥31,100</td>
+<td class="price best">¥31,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1187,7 +1188,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ 楽園ドラゴーナ</td>
 <td class="price">¥18,500</td>
 <td class="diff">-</td>
-<td class="price">¥18,600</td>
+<td class="price best">¥18,600</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1195,9 +1196,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ ステラミラクル</td>
-<td class="price">¥9,700</td>
+<td class="price best">¥9,700</td>
 <td class="diff">-</td>
-<td class="price">¥9,700</td>
+<td class="price best">¥9,700</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1205,7 +1206,7 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ ナイトワンダラー</td>
-<td class="price">¥9,900</td>
+<td class="price best">¥9,900</td>
 <td class="diff">-</td>
 <td class="price">¥9,700</td>
 <td class="diff">-</td>
@@ -1215,7 +1216,7 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ 変幻の仮面</td>
-<td class="price">¥12,500</td>
+<td class="price best">¥12,500</td>
 <td class="diff">-</td>
 <td class="price">¥12,100</td>
 <td class="diff">-</td>
@@ -1225,9 +1226,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ クリムゾンヘイズ</td>
-<td class="price">¥15,200</td>
+<td class="price best">¥15,200</td>
 <td class="diff">-</td>
-<td class="price">¥15,200</td>
+<td class="price best">¥15,200</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1237,7 +1238,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ ワイルドフォース</td>
 <td class="price">¥11,500</td>
 <td class="diff">-</td>
-<td class="price">¥11,600</td>
+<td class="price best">¥11,600</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1247,7 +1248,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ サイバージャッジ</td>
 <td class="price">¥9,600</td>
 <td class="diff">-</td>
-<td class="price">¥9,700</td>
+<td class="price best">¥9,700</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1257,7 +1258,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ シャイニートレジャーex</td>
 <td class="price">¥16,000</td>
 <td class="diff">-</td>
-<td class="price">¥17,100</td>
+<td class="price best">¥17,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1267,7 +1268,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ 古代の咆哮</td>
 <td class="price">¥9,800</td>
 <td class="diff">-</td>
-<td class="price">¥10,100</td>
+<td class="price best">¥10,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1277,7 +1278,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ 未来の一閃</td>
 <td class="price">¥9,600</td>
 <td class="diff">-</td>
-<td class="price">¥9,700</td>
+<td class="price best">¥9,700</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1287,7 +1288,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ レイジングサーフ</td>
 <td class="price">¥12,600</td>
 <td class="diff">-</td>
-<td class="price">¥12,700</td>
+<td class="price best">¥12,700</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1297,7 +1298,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ 黒炎の支配者</td>
 <td class="price">¥18,800</td>
 <td class="diff">-</td>
-<td class="price">¥18,900</td>
+<td class="price best">¥18,900</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1307,7 +1308,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ ポケモンカード151</td>
 <td class="price">¥60,000</td>
 <td class="diff">-</td>
-<td class="price">¥60,100</td>
+<td class="price best">¥60,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1317,7 +1318,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ VSTARユニバース</td>
 <td class="price">¥28,000</td>
 <td class="diff">-</td>
-<td class="price">¥28,100</td>
+<td class="price best">¥28,100</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1325,9 +1326,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ クレイバースト</td>
-<td class="price">¥11,500</td>
+<td class="price best">¥11,500</td>
 <td class="diff">-</td>
-<td class="price">¥11,500</td>
+<td class="price best">¥11,500</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1337,7 +1338,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ スノーハザード</td>
 <td class="price">¥10,200</td>
 <td class="diff">-</td>
-<td class="price">¥10,300</td>
+<td class="price best">¥10,300</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1347,7 +1348,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ トリプレットビート</td>
 <td class="price">¥15,600</td>
 <td class="diff">-</td>
-<td class="price">¥15,800</td>
+<td class="price best">¥15,800</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1355,9 +1356,9 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ポケカ スカーレットex</td>
-<td class="price">¥11,700</td>
+<td class="price best">¥11,700</td>
 <td class="diff">-</td>
-<td class="price">¥11,700</td>
+<td class="price best">¥11,700</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1367,7 +1368,7 @@ tr.hidden { display: none; }
 <td class="name">ポケカ バイオレットex</td>
 <td class="price">¥9,500</td>
 <td class="diff">-</td>
-<td class="price">¥9,600</td>
+<td class="price best">¥9,600</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1447,7 +1448,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ OP-09 新たなる皇帝</td>
 <td class="price">¥14,000</td>
 <td class="diff">-</td>
-<td class="price">¥15,600</td>
+<td class="price best">¥15,600</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1457,7 +1458,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ OP-10 王族の血統</td>
 <td class="price">¥7,000</td>
 <td class="diff">-</td>
-<td class="price">¥8,050</td>
+<td class="price best">¥8,050</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1465,7 +1466,7 @@ tr.hidden { display: none; }
 <tr data-category="🃏トレカ">
 <td class="cat">🃏トレカ</td>
 <td class="name">ワンピ OP-11 神速の拳</td>
-<td class="price">¥22,700</td>
+<td class="price best">¥22,700</td>
 <td class="diff">-</td>
 <td class="price">¥22,500</td>
 <td class="diff">-</td>
@@ -1477,7 +1478,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ OP-12 師弟の絆</td>
 <td class="price">¥9,800</td>
 <td class="diff">-</td>
-<td class="price">¥10,000</td>
+<td class="price best">¥10,000</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1487,7 +1488,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ OP-13 受け継がれる意志</td>
 <td class="price">¥23,000</td>
 <td class="diff">-</td>
-<td class="price">¥25,600</td>
+<td class="price best">¥25,600</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1497,7 +1498,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ OP-14 蒼海の七傑</td>
 <td class="price">¥8,000</td>
 <td class="diff">-</td>
-<td class="price">¥8,250</td>
+<td class="price best">¥8,250</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1507,7 +1508,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ OP-15 神の島の冒険</td>
 <td class="price">¥10,000</td>
 <td class="diff">-</td>
-<td class="price">¥10,400</td>
+<td class="price best">¥10,400</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1517,7 +1518,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ EB-03 Heroines Edition</td>
 <td class="price">¥13,200</td>
 <td class="diff">-</td>
-<td class="price">¥181,000</td>
+<td class="price best">¥181,000</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1527,7 +1528,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ EB-04 EGGHEAD CRISIS</td>
 <td class="price">¥7,600</td>
 <td class="diff">-</td>
-<td class="price">¥8,000</td>
+<td class="price best">¥8,000</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1537,7 +1538,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ PRB-01 THE BEST</td>
 <td class="price">¥12,500</td>
 <td class="diff">-</td>
-<td class="price">¥13,600</td>
+<td class="price best">¥13,600</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1547,7 +1548,7 @@ tr.hidden { display: none; }
 <td class="name">ワンピ PRB-02 THE BEST vol.2</td>
 <td class="price">¥5,500</td>
 <td class="diff">-</td>
-<td class="price">¥5,800</td>
+<td class="price best">¥5,800</td>
 <td class="diff">-</td>
 <td class="price">-</td>
 <td class="diff">-</td>
@@ -1555,7 +1556,6 @@ tr.hidden { display: none; }
 
 </tbody>
 </table>
-</div>
 </div>
 <div class="footer">データ元: 1丁目の奇跡 / ルデヤ / 買取Wiki ｜ 自動更新</div>
 <script>
