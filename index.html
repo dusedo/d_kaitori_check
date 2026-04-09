@@ -16,20 +16,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino San
 .controls input { flex: 1; min-width: 200px; padding: 10px 14px; font-size: 14px; border: 1px solid #ddd; border-radius: 6px; outline: none; background: #fff; }
 .controls input:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
 .table-wrap { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; background: #fff; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; white-space: nowrap; }
 thead tr:first-child th { position: sticky; top: 0; z-index: 4; }
-thead tr:nth-child(2) th { position: sticky; top: 0; z-index: 4; }
-th { padding: 8px 8px; text-align: center; font-weight: 600; font-size: 11px; color: #666; border-bottom: 1px solid #ddd; }
-th.vendor { background: #eef2ff; }
-th.sub { background: #fafafa; }
+thead tr:nth-child(2) th { position: sticky; z-index: 4; }
+th { padding: 8px 8px; text-align: center; font-weight: 600; font-size: 11px; color: #666; }
+th.vendor { background: #eef2ff; border-bottom: 1px solid #ddd; }
+th.sub { background: #fafafa; border-bottom: 2px solid #ddd; }
 td { padding: 8px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
 tr:hover { background: #fafbff; }
 tr.hidden { display: none; }
-.cat { font-size: 12px; white-space: nowrap; text-align: center; position: sticky; left: 0; background: #fff; z-index: 3; }
-.name { font-weight: 600; min-width: 200px; max-width: 200px; white-space: normal; word-break: break-all; position: sticky; left: 52px; background: #fff; z-index: 3; border-right: 1px solid #e0e0e0; }
-thead th:first-child { position: sticky; left: 0; z-index: 6; }
-thead th:nth-child(2) { position: sticky; left: 52px; z-index: 6; }
+.cat { font-size: 12px; white-space: nowrap; text-align: center; position: sticky; left: 0; background: inherit; z-index: 5; }
+.name { font-weight: 600; min-width: 200px; max-width: 200px; white-space: normal; word-break: break-all; position: sticky; left: 52px; background: inherit; z-index: 5; border-right: 1px solid #e0e0e0; }
+thead th:first-child { position: sticky; left: 0; z-index: 10; }
+thead th:nth-child(2) { position: sticky; left: 52px; z-index: 10; }
 tr:hover .cat, tr:hover .name { background: #fafbff; }
+tbody .cat { background: #fff; }
+tbody .name { background: #fff; }
 .price { font-weight: 700; text-align: center; }
 .price.best { background: #fffde7; }
 .diff { text-align: center; font-weight: 600; font-size: 12px; }
