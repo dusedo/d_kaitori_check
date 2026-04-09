@@ -17,21 +17,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino San
 .controls input:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
 .table-wrap { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; background: #fff; }
 table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; white-space: nowrap; }
-thead tr:first-child th { position: sticky; top: 0; z-index: 4; }
-thead tr:nth-child(2) th { position: sticky; z-index: 4; }
-th { padding: 8px 8px; text-align: center; font-weight: 600; font-size: 11px; color: #666; }
-th.vendor { background: #eef2ff; border-bottom: 1px solid #ddd; }
-th.sub { background: #fafafa; border-bottom: 2px solid #ddd; }
+th { padding: 8px; text-align: center; font-weight: 600; font-size: 11px; color: #666; }
+th.vendor { background: #eef2ff; position: sticky; top: 0; z-index: 4; }
+th.sub { background: #fafafa; position: sticky; z-index: 4; border-bottom: 2px solid #ddd; }
+th.h-cat { background: #fafafa; position: sticky; top: 0; left: 0; z-index: 10; border-bottom: 2px solid #ddd; }
+th.h-name { background: #fafafa; position: sticky; top: 0; left: 52px; z-index: 10; border-bottom: 2px solid #ddd; border-right: 1px solid #e0e0e0; }
 td { padding: 8px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
 tr:hover { background: #fafbff; }
 tr.hidden { display: none; }
-.cat { font-size: 12px; white-space: nowrap; text-align: center; position: sticky; left: 0; background: inherit; z-index: 5; }
-.name { font-weight: 600; min-width: 200px; max-width: 200px; white-space: normal; word-break: break-all; position: sticky; left: 52px; background: inherit; z-index: 5; border-right: 1px solid #e0e0e0; }
-thead th:first-child { position: sticky; left: 0; z-index: 10; }
-thead th:nth-child(2) { position: sticky; left: 52px; z-index: 10; }
+.cat { font-size: 12px; white-space: nowrap; text-align: center; position: sticky; left: 0; background: #fff; z-index: 5; }
+.name { font-weight: 600; min-width: 200px; max-width: 200px; white-space: normal; word-break: break-all; position: sticky; left: 52px; background: #fff; z-index: 5; border-right: 1px solid #e0e0e0; }
 tr:hover .cat, tr:hover .name { background: #fafbff; }
-tbody .cat { background: #fff; }
-tbody .name { background: #fff; }
 .price { font-weight: 700; text-align: center; }
 .price.best { background: #fffde7; }
 .diff { text-align: center; font-weight: 600; font-size: 12px; }
@@ -66,16 +62,11 @@ tbody .name { background: #fff; }
 <table>
 <thead>
 <tr>
-<th class="sub" rowspan="2">カテゴリ</th>
-<th class="sub" rowspan="2">商品名</th>
-<th class="vendor" colspan="2">1丁目</th>
-<th class="vendor" colspan="2">ルデヤ</th>
-<th class="vendor" colspan="2">Wiki</th>
-</tr>
-<tr>
-<th class="sub">現在価格</th><th class="sub">前日比</th>
-<th class="sub">現在価格</th><th class="sub">前日比</th>
-<th class="sub">現在価格</th><th class="sub">前日比</th>
+<th class="h-cat">カテゴリ</th>
+<th class="h-name">商品名</th>
+<th class="vendor">1丁目</th><th class="vendor">前日比</th>
+<th class="vendor">ルデヤ</th><th class="vendor">前日比</th>
+<th class="vendor">Wiki</th><th class="vendor">前日比</th>
 </tr>
 </thead>
 <tbody id="tableBody">
@@ -1565,14 +1556,6 @@ tbody .name { background: #fff; }
 </div>
 <div class="footer">データ元: 1丁目の奇跡 / ルデヤ / 買取Wiki ｜ 自動更新</div>
 <script>
-// 2行目ヘッダーのtopを1行目の高さに合わせる
-(function() {
-  const rows = document.querySelectorAll('thead tr');
-  if (rows.length >= 2) {
-    const h = rows[0].getBoundingClientRect().height;
-    rows[1].querySelectorAll('th').forEach(th => th.style.top = h + 'px');
-  }
-})();
 function filterTable() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const cat = document.getElementById('categoryFilter').value;
